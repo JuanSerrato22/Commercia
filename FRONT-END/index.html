@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Gestión de Canchas</title>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <div class="logo">SportReserve</div>
+            <nav>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#canchas">Canchas</a></li>
+                    <li><a href="#reservas">Reservas</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                    <li><a href="#login">Iniciar sesión</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="inicio">
+        <h1>Reserva tu cancha favorita</h1>
+        <p>Sistema fácil y rápido para reservar canchas deportivas en cualquier momento</p>
+        <a href="#reservas" class="btn">Hacer una reserva</a>
+    </section>
+
+    <section class="campos-section container" id="canchas">
+        <h2 class="section-title">Nuestras Canchas</h2>
+        <div class="campos-grid">
+            <div class="campo-card">
+                <img src="/api/placeholder/300/200" alt="Cancha de Fútbol" class="campo-img">
+                <div class="campo-info">
+                    <h3>Cancha de Fútbol</h3>
+                    <p>Cancha profesional de césped sintético con iluminación nocturna</p>
+                    <a href="#reservas" class="btn" onclick="showCalendar('Cancha de Fútbol')">Reservar</a>
+                </div>
+            </div>
+            <div class="campo-card">
+                <img src="/api/placeholder/300/200" alt="Cancha de Tennis" class="campo-img">
+                <div class="campo-info">
+                    <h3>Cancha de Tennis</h3>
+                    <p>Superficie de arcilla con mantenimiento diario</p>
+                    <a href="#reservas" class="btn" onclick="showCalendar('Cancha de Tennis')">Reservar</a>
+                </div>
+            </div>
+            <div class="campo-card">
+                <img src="/api/placeholder/300/200" alt="Cancha de Básquet" class="campo-img">
+                <div class="campo-info">
+                    <h3>Cancha de Básquet</h3>
+                    <p>Piso de madera profesional y tableros de cristal templado</p>
+                    <a href="#reservas" class="btn" onclick="showCalendar('Cancha de Básquet')">Reservar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="calendar-section container" id="reservas">
+        <h2 class="section-title">Calendario de Reservas</h2>
+        <p>Selecciona una fecha y hora para reservar tu cancha:</p>
+        
+        <table class="calendar">
+            <thead>
+                <tr>
+                    <th>Hora</th>
+                    <th>Lunes</th>
+                    <th>Martes</th>
+                    <th>Miércoles</th>
+                    <th>Jueves</th>
+                    <th>Viernes</th>
+                    <th>Sábado</th>
+                    <th>Domingo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>9:00-10:00</td>
+                    <td class="available" onclick="openReservaModal('Lunes', '9:00-10:00')">Disponible</td>
+                    <td class="available" onclick="openReservaModal('Martes', '9:00-10:00')">Disponible</td>
+                    <td class="reserved">Reservado</td>
+                    <td class="available" onclick="openReservaModal('Jueves', '9:00-10:00')">Disponible</td>
+                    <td class="available" onclick="openReservaModal('Viernes', '9:00-10:00')">Disponible</td>
+                    <td class="reserved">Reservado</td>
+                    <td class="reserved">Reservado</td>
+                </tr>
+                <tr>
+                    <td>10:00-11:00</td>
+                    <td class="reserved">Reservado</td>
+                    <td class="available" onclick="openReservaModal('Martes', '10:00-11:00')">Disponible</td>
+                    <td class="available" onclick="openReservaModal('Miércoles', '10:00-11:00')">Disponible</td>
+                    <td class="available" onclick="openReservaModal('Jueves', '10:00-11:00')">Disponible</td>
+                    <td class="reserved">Reservado</td>
+                    <td class="available" onclick="openReservaModal('Sábado', '10:00-11:00')">Disponible</td>
+                    <td class="available" onclick="openReservaModal('Domingo', '10:00-11:00')">Disponible</td>
+                </tr>
+                <tr>
+                    <td>11:00-12:00</td>
+                    <td class="available" onclick="openReservaModal('Lunes', '11:00-12:00')">Disponible</td>
+                    <td class="reserved">Reservado</td>
+                    <td class="available" onclick="openReservaModal('Miércoles', '11:00-12:00')">Disponible</td>
+                    <td class="reserved">Reservado</td>
+                    <td class="available" onclick="openReservaModal('Viernes', '11:00-12:00')">Disponible</td>
+                    <td class="reserved">Reservado</td>
+                    <td class="available" onclick="openReservaModal('Domingo', '11:00-12:00')">Disponible</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Modal para hacer reservas -->
+    <div class="modal" id="reservaModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Realizar Reserva</h2>
+                <span class="close" onclick="closeReservaModal()">&times;</span>
+            </div>
+            <form id="reservaForm">
+                <div class="form-group">
+                    <label for="cancha">Cancha:</label>
+                    <select id="cancha" class="form-control" required>
+                        <option value="">Selecciona una cancha</option>
+                        <option value="futbol">Cancha de Fútbol</option>
+                        <option value="tennis">Cancha de Tennis</option>
+                        <option value="basquet">Cancha de Básquet</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fecha">Fecha:</label>
+                    <input type="text" id="fecha" class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="hora">Hora:</label>
+                    <input type="text" id="hora" class="form-control" readonly>
+                
+</body>
+</html>

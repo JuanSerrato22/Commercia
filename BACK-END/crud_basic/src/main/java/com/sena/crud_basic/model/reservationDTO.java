@@ -1,83 +1,77 @@
 package com.sena.crud_basic.model;
 
-import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "reservation")
-public class reservationDTO implements Serializable {
-    
-    private static final long serialVersionUID = 1L;
-    
+@Entity(name = "Reservation")
+public class reservationDTO {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "reservation_id")
-    private Long id;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private userDTO user;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "court_id", nullable = false)
-    private courtDTO court;
-    
-    @Column(nullable = false)
+    @Column(name = "idReservation")
+    private int idReservation;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idClient")
+    private int idClient;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idCourt")
+    private int idCourt;
+
+    @Column(name = "name", nullable = false, length = 50)
+    private String name;
+
+    @Column(name = "date")
     private LocalDate date;
-    
-    @Column(name = "start_time", nullable = false)
-    private LocalTime startTime;
-    
-    @Column(name = "end_time", nullable = false)
-    private LocalTime endTime;
-    
-    // Constructor vacío requerido por JPA
-    public reservationDTO() {
-    }
-    
-    // Constructor con campos principales
-    public reservationDTO(userDTO user, courtDTO court, LocalDate date, LocalTime startTime, LocalTime endTime) {
-        this.user = user;
-        this.court = court;
-        this.date = date;
-        this.startTime = startTime;
-        this.endTime = endTime;
-    }
-    
-    // Getters y Setters
-    public Long getId() {
-        return id;
+
+    @Column(name = "startTime")
+    private LocalDateTime startTime;
+
+    @Column(name = "endTime")
+    private LocalDateTime endTime;
+
+
+    // Getters and Setters
+
+    public int getIdReservation() {
+        return idReservation;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdReservation(int idReservation) {
+        this.idReservation = idReservation;
     }
 
-    public userDTO getUsuario() {
-        return user;
+    public int getIdClient() {
+        return idClient;
     }
 
-    public void setUser(userDTO user) {
-        this.user = user;
+    public void setIdClient(int idClient) {
+        this.idClient = idClient;
     }
 
-    public courtDTO getCourt() {
-        return court;
+    public int getIdCourt() {
+        return idCourt;
     }
 
-    public void setCourt(courtDTO court) {
-        this.court = court;
+    public void setIdCourt(int idCourt) {
+        this.idCourt = idCourt;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public LocalDate getDate() {
@@ -88,53 +82,19 @@ public class reservationDTO implements Serializable {
         this.date = date;
     }
 
-    public LocalTime getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalTime startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
-    public LocalTime getEndTime() {
-        return endTime;
+    public LocalDateTime getEndTime() {
+        return startTime;
     }
 
-    public void setEndTime(LocalTime endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
-    }
-    
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
-        reservationDTO other = (reservationDTO) obj;
-        if (id == null) {
-            if (other.id != null) return false;
-        } else if (!id.equals(other.id)) return false;
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Reservation [id=" + id + ", date=" + date + ", startTime=" + startTime + ", endTime=" + endTime + "]";
-    }
-    
-    // Método para verificar si una reserva se solapa con otra
-    public boolean seSolapaCon(reservationDTO otra) {
-        if (!this.date.equals(otra.getDate()) || !this.court.equals(otra.getCourt())) {
-            return false;
-        }
-        
-        return !(this.endTime.isBefore(otra.getStartTime()) || this.startTime.isAfter(otra.getEndTime()));
     }
 }

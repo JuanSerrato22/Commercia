@@ -2,8 +2,8 @@ package com.sena.crud_basic.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sena.crud_basic.model.customerDTO;
-import com.sena.crud_basic.service.CustomerService;
+import com.sena.crud_basic.model.courtDTO;
+import com.sena.crud_basic.service.CourtService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +20,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
-public class CustomerController {
+public class    CourtController {
 
     @Autowired
-    private CustomerService customerService;
+    private CourtService courtService;
 
     //método para crear un registro POST
     @PostMapping("/")
-    public String registerCustomer(
-        @RequestBody customerDTO customer
+    public String registerCourt(
+        @RequestBody courtDTO court
         ){
-            customerService.save(customer);
+            courtService.save(court);
         return "register ok";
     }
 
@@ -40,8 +40,8 @@ public class CustomerController {
 
 
     @GetMapping("/")
-    public ResponseEntity<Object> getCustomerAll() {
-        var prueba=customerService.getAllCustomer();
+    public ResponseEntity<Object> getCourtAll() {
+        var prueba=courtService.getAllCourt();
         
         return new ResponseEntity<>(prueba, HttpStatus.OK);
     }
@@ -49,8 +49,8 @@ public class CustomerController {
     
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getCustomerId(@PathVariable int id) {
-        var prueba=customerService.getCustomerById(id);
+    public ResponseEntity<Object> getCourtId(@PathVariable int id) {
+        var prueba=courtService.getCourtById(id);
         
         return new ResponseEntity<>(prueba, HttpStatus.OK);
     }

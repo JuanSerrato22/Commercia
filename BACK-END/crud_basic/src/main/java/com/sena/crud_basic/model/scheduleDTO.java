@@ -14,12 +14,12 @@ public class scheduleDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idSchedule")
-    private int idSchedule;
+    private Long idSchedule;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idCourt")
-    private int idCourt;
+    private Long idCourt;
 
     @Column(name = "weekDay", nullable = false, length = 10)
     private String weekDay;
@@ -36,19 +36,19 @@ public class scheduleDTO {
 
     // Getters and Setters
 
-    public int getIdSchedule() {
+    public Long getIdSchedule() {
         return idSchedule;
     }
 
-    public void setIdSchedule(int idSchedule) {
+    public void setIdSchedule(Long idSchedule) {
         this.idSchedule = idSchedule;
     }
 
-    public int getIdCourt() {
+    public Long getIdCourt() {
         return idCourt;
     }
 
-    public void setIdCourt(int idCourt) {
+    public void setIdCourt(Long idCourt) {
         this.idCourt = idCourt;
     }
 

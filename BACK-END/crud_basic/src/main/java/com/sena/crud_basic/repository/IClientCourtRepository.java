@@ -1,9 +1,10 @@
 package com.sena.crud_basic.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.sena.crud_basic.model.customerDTO;
+
+import com.sena.crud_basic.model.clientcourtDTO;
 //extedemos de JPA para generar la conexión
 //JpaRepository<modelo,tipoPK>
-public interface ICustomerRepository extends JpaRepository<customerDTO,Integer>{
+public interface IClientCourtRepository extends JpaRepository<clientcourtDTO,Integer>{
 
     /*
      * C

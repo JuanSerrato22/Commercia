@@ -3,19 +3,19 @@ package com.sena.crud_basic.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.sena.crud_basic.repository.ICustomerRepository;
-import com.sena.crud_basic.model.customerDTO;
+import com.sena.crud_basic.repository.IReservationRepository;
+import com.sena.crud_basic.model.reservationDTO;
 
 /*
  * Agregamos la anotación bean @Service
  * Para indicar que el archivo es un servicio
  */
 @Service
-public class CustomerService{
+public class ReservationService{
 
     //se realiza la conexión con el repositorio
     @Autowired
-    private ICustomerRepository ICustomerRepository;
+    private IReservationRepository IReservationRepository;
 
     /*
      * crear
@@ -31,20 +31,20 @@ public class CustomerService{
 
 
 
-    public List<customerDTO> getAllCustomer(){
-        return ICustomerRepository.findAll();
+    public List<reservationDTO> getAllReservation(){
+        return IReservationRepository.findAll();
     }
 
-    public customerDTO getCustomerById(int id){
-        return ICustomerRepository.findById(id).get();
+    public reservationDTO getReservationById(int id){
+        return IReservationRepository.findById(id).get();
     }
 
-    public boolean save(customerDTO customer){
+    public boolean save(reservationDTO reservation){
         /*
          * if(customer.getId==0)register or create
          * else update
          */
-        ICustomerRepository.save(customer);
+        IReservationRepository.save(reservation);
         return true;
     }
     

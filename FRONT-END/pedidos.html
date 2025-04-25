@@ -45,11 +45,8 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Cliente</th>
-                                <th>Producto</th>
-                                <th>Fecha</th>
-                                <th>Total</th>
+                                <th>Monto</th>
                                 <th>Estado</th>
-                                <th>Dirección de envío</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -60,7 +57,7 @@
                 </div>
             </div>
 
-            <!-- Formulario de pedidos (oculto inicialmente) -->
+            <!-- Formulario (oculto inicialmente) -->
             <div class="card" id="formulario-pedido" style="display: none;">
                 <div class="card-header">
                     <h2>Agregar/Editar Pedido</h2>
@@ -68,19 +65,42 @@
                 <div class="card-body">
                     <form id="pedido-form">
                         <input type="hidden" id="pedido-id" />
-                        <div>
-                            <label for="producto">Producto:</label>
-                            <select id="producto" required></select>
-                        </div>
-                        <div>
-                            <label for="precio">Precio:</label>
-                            <input type="text" id="precio" readonly />
-                        </div>
+                        
                         <div>
                             <label for="cliente">Cliente:</label>
-                            <select id="cliente" required></select>
+                            <select id="cliente" required>
+                                <option value="" disabled selected>Selecciona un cliente</option>
+                            </select>
                         </div>
-                        
+
+                        <div>
+                            <label for="producto">Producto:</label>
+                            <select id="producto" required onchange="mostrarMonto()">
+                                <option value="" disabled selected>Selecciona un producto</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="monto">Monto:</label>
+                            <input type="text" id="monto" readonly />
+                        </div>
+
+                        <div>
+                            <label for="direccionEnvio">Dirección de Envío:</label>
+                            <input type="text" id="direccionEnvio" required />
+                        </div>
+
+                        <div>
+                            <label for="estado">Estado:</label>
+                            <select id="estado" required>
+                                <option value="PENDIENTE">Pendiente</option>
+                                <option value="PAGADO">Pagado</option>
+                                <option value="ENVIADO">Enviado</option>
+                                <option value="ENTREGADO">Entregado</option>
+                                <option value="CANCELADO">Cancelado</option>
+                            </select>
+                        </div>
+
                         <button type="submit" class="btn-link">Guardar</button>
                     </form>
                 </div>

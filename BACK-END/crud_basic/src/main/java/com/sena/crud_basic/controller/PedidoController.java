@@ -103,6 +103,7 @@ public class PedidoController {
         }
     }
     
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePedido(@PathVariable Long id) {
         if (!pedidoService.findById(id).isPresent()) {

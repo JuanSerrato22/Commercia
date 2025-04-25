@@ -44,6 +44,7 @@ public class Pedido {
     @Enumerated(EnumType.STRING)
     private EstadoPedido estado;
     
+    @Column(name = "direccion_envio" ,nullable = false)
     private String direccionEnvio;
     
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)

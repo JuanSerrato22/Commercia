@@ -89,4 +89,9 @@ public class PedidoService {
     public void deleteById(Long id) {
         pedidoRepository.deleteById(id);
     }
+
+    public void save(Pedido existing) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    }
 }

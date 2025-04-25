@@ -1,132 +1,151 @@
-const API_URL = 'http://localhost:8085/api/pedidos';
-const clienteSelect = document.getElementById('cliente');
-const productoSelect = document.getElementById('producto');
-const precioInput = document.getElementById('precio'); // Para el precio del producto
-const tbody = document.getElementById('pedidos-tbody');
-const form = document.getElementById('pedido-form');
-const formularioPedido = document.getElementById('formulario-pedido');
+document.addEventListener('DOMContentLoaded', function () {
+    const API_BASE = 'http://localhost:8085/api/pedidos';
 
 
-function cargarPedidos() {
-    fetch('http://localhost:8085/api/pedidos')
-        .then(res => res.json())
-        .then(data => {
-            tbody.innerHTML = '';
-            data.forEach(pedido => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${pedido.id}</td>
-                    <td>${pedido.cliente.nombre} ${pedido.cliente.apellido}</td>
-                    <td>${pedido.fecha}</td>
-                    <td>${pedido.direccionEnvio}</td>
-                    <td>
-                        <button onclick="editarPedido(${pedido.id})">Editar</button>
-                        <button onclick="eliminarPedido(${pedido.id})">Eliminar</button>
-                    </td>
-                `;
-                tbody.appendChild(row);
+    cargarClientes();
+    cargarProductos();
+    cargarPedidos();
+
+    // Manejo del formulario
+    document.getElementById('pedido-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const id = document.getElementById('pedido-id').value;
+        const clienteId = document.getElementById('cliente').value;
+        const productoId = document.getElementById('producto').value;
+        const direccionEnvio = document.getElementById('direccionEnvio').value;
+        const estado = document.getElementById('estado').value;
+
+        const pedido = { cliente: { id: clienteId }, producto: { id: productoId }, direccionEnvio, estado };
+
+        if (id) {
+            // Actualizar pedido
+            fetch(`http://localhost:8085/api/pedidos/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(pedido)
+            })
+            .then(() => {
+                cargarPedidos();
+                cancelarFormulario();
             });
-        });
-}
-
+        } else {
+            // Crear pedido
+            fetch('http://localhost:8085/api/pedidos', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(pedido)
+            })
+            .then(() => {
+                cargarPedidos();
+                cancelarFormulario();
+            });
+        }
+    });
+});
 
 function cargarClientes() {
-    return fetch('http://localhost:8085/api/clientes')
+    fetch('http://localhost:8085/api/clientes')
         .then(res => res.json())
         .then(data => {
-            clienteSelect.innerHTML = '';
-            data.forEach(cat => {
+            const select = document.getElementById('cliente');
+            data.forEach(cliente => {
                 const option = document.createElement('option');
-                option.value = cat.id, cat.nombre, cat.apellido;
-                option.textContent = cat.apellido;
-                clienteSelect.appendChild(option);
+                option.value = cliente.id;
+                option.textContent = `${cliente.nombre} ${cliente.apellido}`;
+                select.appendChild(option);
             });
         });
 }
 
 function cargarProductos() {
-    return fetch('http://localhost:8085/api/productos')
+    fetch('http://localhost:8085/api/productos')
         .then(res => res.json())
         .then(data => {
-            productoSelect.innerHTML = '';
+            const select = document.getElementById('producto');
             data.forEach(producto => {
                 const option = document.createElement('option');
                 option.value = producto.id;
-                option.textContent = `${producto.nombre} - $${producto.precio}`;
-                productoSelect.appendChild(option);
+                option.textContent = `${producto.nombre}`;
+                select.appendChild(option);
             });
         });
 }
 
-function mostrarFormulario() {
-    form.reset();
-    document.getElementById('pedido-id').value = '';
-    precioInput.value = ''; // Resetear el precio cuando se muestra el formulario
-    formularioPedido.style.display = 'block';
-    cargarClientes();
-    cargarProductos();
+function cargarPedidos() {
+    fetch('http://localhost:8085/api/pedidos')
+        .then(res => res.json())
+        .then(data => {
+            const tbody = document.getElementById('pedidos-tbody');
+            tbody.innerHTML = '';
+            data.forEach(pedido => {
+                // Comprobamos que los datos existan antes de acceder a ellos
+                const clienteNombre = pedido.cliente ? `${pedido.cliente.nombre} ${pedido.cliente.apellido}` : 'Desconocido';
+                const productoNombre = pedido.producto ? pedido.producto.nombre : 'Desconocido';
+                const productoPrecio = pedido.producto ? pedido.producto.precio : 'No disponible';
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${pedido.id}</td>
+                    <td>${clienteNombre}</td>
+                    <td>${productoNombre}</td>
+                    <td>${productoPrecio}</td>
+                    <td>${pedido.estado}</td>
+                    <td>
+                        <button class="btn-icon" onclick="editarPedido(${pedido.id}, '${pedido.cliente ? pedido.cliente.id : ''}', '${pedido.producto ? pedido.producto.id : ''}', '${pedido.direccionEnvio}', '${pedido.estado}')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-icon" onclick="eliminarPedido(${pedido.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        })
+        .catch(error => console.error('Error al cargar pedidos:', error));
 }
 
-productoSelect.addEventListener('change', function () {
-    const productoId = productoSelect.value;
+function mostrarFormulario() {
+    document.getElementById('formulario-pedido').style.display = 'block';
+    document.getElementById('pedido-id').value = '';
+    document.getElementById('cliente').value = '';
+    document.getElementById('producto').value = '';
+    document.getElementById('monto').value = '';
+    document.getElementById('direccionEnvio').value = '';
+    document.getElementById('estado').value = 'PENDIENTE';
+}
+
+function cancelarFormulario() {
+    document.getElementById('formulario-pedido').style.display = 'none';
+}
+
+function editarPedido(id, clienteId, productoId, direccionEnvio, estado) {
+    mostrarFormulario();
+    document.getElementById('pedido-id').value = id;
+    document.getElementById('cliente').value = clienteId;
+    document.getElementById('producto').value = productoId;
+    document.getElementById('direccionEnvio').value = direccionEnvio;
+    document.getElementById('estado').value = estado;
+}
+
+function eliminarPedido(id) {
+    if (confirm('¿Estás seguro de que quieres eliminar este pedido?')) {
+        fetch(`http://localhost:8085/api/pedidos/${id}`, {
+            method: 'DELETE'
+        }).then(() => cargarPedidos());
+    }
+}
+
+function mostrarMonto() {
+    const productoId = document.getElementById('producto').value;
     if (productoId) {
         fetch(`http://localhost:8085/api/productos/${productoId}`)
             .then(res => res.json())
             .then(producto => {
-                precioInput.value = producto.precio; // Mostrar el precio del producto seleccionado
+                document.getElementById('monto').value = producto.precio;
             });
-    }
-});
-
-
-
-form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const id = document.getElementById('pedido-id').value;
-    const pedido = {
-        cliente: { id: parseInt(clienteSelect.value) },
-        detalles: [{
-            productoId: parseInt(productoSelect.value),
-            cantidad: 1,
-            precioUnitario: parseFloat(precioInput.value)
-        }],
-
-    };
-
-    const method = id ? 'PUT' : 'POST';
-    const url = id ? `http://localhost:8085/api/pedidos/${id}` : API_URL;
-
-    fetch('http://localhost:8085/api/pedidos', {
-        method: method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(pedido)
-    })
-        .then(() => {
-            cargarPedidos();
-            formularioPedido.style.display = 'none';
-        });
-});
-
-function editarPedido(id) {
-    fetch(`http://localhost:8085/api/pedidos/${id}`)
-        .then(res => res.json())
-        .then(pedido => {
-            document.getElementById('pedido-id').value = pedido.id;
-            clienteSelect.value = pedido.cliente.id;
-            document.getElementById('direccionEnvio').value = pedido.direccionEnvio;
-            formularioPedido.style.display = 'block';
-            cargarProductos().then(() => {
-                productoSelect.value = pedido.detalles[0]?.productoId || '';
-                precioInput.value = pedido.detalles[0]?.precioUnitario || ''; // Establecer el precio cuando se edita
-            });
-        });
-}
-
-function eliminarPedido(id) {
-    if (confirm('¿Seguro que deseas eliminar este pedido?')) {
-        fetch(`http://localhost:8085/api/pedidos/${id}`, { method: 'DELETE' })
-            .then(() => cargarPedidos());
+    } else {
+        document.getElementById('monto').value = '';
     }
 }
-
-cargarPedidos();

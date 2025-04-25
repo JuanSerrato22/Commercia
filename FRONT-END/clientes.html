@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Clientes</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h3>Tienda Online</h3>
+                <p>Panel de Administración</p>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="productos.html"><i class="fas fa-box"></i> Productos</a></li>
+                <li><a href="categorias.html"><i class="fas fa-tags"></i> Categorías</a></li>
+                <li class="active"><a href="clientes.html"><i class="fas fa-users"></i> Clientes</a></li>
+                <li><a href="pedidos.html"><i class="fas fa-shopping-cart"></i> Pedidos</a></li>
+            </ul>
+        </nav>
+
+        <!-- Contenido principal -->
+        <main class="content">
+            <header class="content-header">
+                <h1>Clientes</h1>
+                <div class="user-info">
+                    <span>Admin</span>
+                </div>
+            </header>
+
+            <!-- Lista de clientes -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Listado de Clientes</h2>
+                    <button class="btn-link" onclick="mostrarFormulario()">+ Nuevo Cliente</button>
+                </div>
+                <div class="card-body">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Teléfono</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="clientes-tbody">
+                            <!-- Datos se llenarán desde la API -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Formulario (oculto inicialmente) -->
+            <div class="card" id="formulario-cliente" style="display: none;">
+                <div class="card-header">
+                    <h2>Agregar/Editar Cliente</h2>
+                </div>
+                <div class="card-body">
+                    <form id="cliente-form">
+                        <input type="hidden" id="cliente-id" />
+                        <div>
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" id="nombre" required />
+                        </div>
+                        <div>
+                            <label for="apellido">Apellido:</label>
+                            <input type="text" id="apellido" required />
+                          </div>
+                        <div>
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" required />
+                        </div>
+                        <div>
+                            <label for="telefono">Teléfono:</label>
+                            <input type="text" id="telefono" required />
+                        </div>
+                        <div>
+                            <label for="direccion">Dirección:</label>
+                            <input type="text" id="direccion" />
+                          </div>
+                        <button type="submit" class="btn-link">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="./js/clientes.js"></script>
+</body>
+</html>

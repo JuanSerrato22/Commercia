@@ -33,6 +33,8 @@ public class Cliente {
     private String telefono;
     
     private String direccion;
+
+    private boolean activo = true;
     
     @JsonIgnore
     @OneToMany(mappedBy = "cliente")
@@ -41,12 +43,13 @@ public class Cliente {
     // Constructores
     public Cliente() {}
     
-    public Cliente(String nombre, String apellido, String email, String telefono, String direccion) {
+    public Cliente(String nombre, String apellido, String email, String telefono, String direccion, boolean activo) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
         this.telefono = telefono;
         this.direccion = direccion;
+        this.activo = activo;
     }
     
     // Getters y setters
@@ -104,5 +107,13 @@ public class Cliente {
 
     public void setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
 }

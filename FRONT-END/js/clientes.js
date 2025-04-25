@@ -1,6 +1,7 @@
-const apiUrl = 'http://localhost:8085/api/clientes';
 
 document.addEventListener('DOMContentLoaded', function () {
+    const API_BASE = 'http://localhost:8085/api/clientes';
+
     cargarClientes();
 
     document.getElementById('cliente-form').addEventListener('submit', function (e) {
@@ -17,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (id) {
             // Actualizar cliente
-            fetch(`/api/clientes/${id}`, {
+            fetch(`http://localhost:8085/api/clientes/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(cliente)
@@ -28,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         } else {
             // Crear cliente
-            fetch('/api/clientes', {
+            fetch('http://localhost:8085/api/clientes', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(cliente)
@@ -45,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function cargarClientes() {
-    fetch('/api/clientes')
+    fetch('http://localhost:8085/api/clientes')
         .then(res => res.json())
         .then(data => {
             const tbody = document.getElementById('clientes-tbody');
@@ -75,7 +76,6 @@ function mostrarFormulario() {
     document.getElementById('formulario-cliente').style.display = 'block';
     document.getElementById('cliente-id').value = '';
     document.getElementById('nombre').value = '';
-    document.getElementById('apellido').value = '';
     document.getElementById('email').value = '';
     document.getElementById('telefono').value = '';
     document.getElementById('direccion').value = '';
@@ -89,7 +89,7 @@ function editarCliente(id, nombre, apellido, email, telefono, direccion) {
     mostrarFormulario();
     document.getElementById('cliente-id').value = id;
     document.getElementById('nombre').value = nombre;
-    document.getElementById('apellido').value = apellido;
+    document.getElementById('apellido').value = apellido; 
     document.getElementById('email').value = email;
     document.getElementById('telefono').value = telefono;
     document.getElementById('direccion').value = direccion;
@@ -97,7 +97,7 @@ function editarCliente(id, nombre, apellido, email, telefono, direccion) {
 
 function eliminarCliente(id) {
     if (confirm('¿Estás seguro de que quieres eliminar este cliente?')) {
-        fetch(`/api/clientes/${id}`, {
+        fetch(`http://localhost:8085/api/clientes/${id}`, {
             method: 'DELETE'
         }).then(() => cargarClientes());
     }

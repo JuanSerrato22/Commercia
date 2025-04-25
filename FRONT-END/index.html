@@ -40,7 +40,6 @@
                 <h1>Dashboard</h1>
                 <div class="user-info">
                     <span>Admin</span>
-                    <img src="https://via.placeholder.com/40" alt="Admin">
                 </div>
             </header>
 
@@ -53,7 +52,7 @@
                         </div>
                         <div class="stat-details">
                             <h3>Productos</h3>
-                            <p class="stat-number">145</p>
+                            <p id="productos-count" class="stat-number">0</p>
                         </div>
                     </div>
                     <div class="stat-card">
@@ -62,7 +61,7 @@
                         </div>
                         <div class="stat-details">
                             <h3>Clientes</h3>
-                            <p class="stat-number">89</p>
+                            <p id="clientes-count" class="stat-number">0</p>
                         </div>
                     </div>
                     <div class="stat-card">
@@ -71,7 +70,7 @@
                         </div>
                         <div class="stat-details">
                             <h3>Pedidos</h3>
-                            <p class="stat-number">32</p>
+                            <p id="pedidos-count" class="stat-number">0</p>
                         </div>
                     </div>
                     <div class="stat-card">
@@ -80,7 +79,7 @@
                         </div>
                         <div class="stat-details">
                             <h3>Ingresos</h3>
-                            <p class="stat-number">$25,245</p>
+                            <p id="ingresos" class="stat-number">$0</p>
                         </div>
                     </div>
                 </div>
@@ -103,8 +102,8 @@
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <!-- Los pedidos se añadirán aquí dinámicamente -->
+                            <tbody id="pedidos-recientes-tbody">
+                                <!-- Los pedidos recientes se añadirán aquí dinámicamente -->
                             </tbody>
                         </table>
                     </div>

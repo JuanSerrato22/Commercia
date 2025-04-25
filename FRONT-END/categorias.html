@@ -1,36 +1,26 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Categorías - Gestión de Tienda</title>
-    <link rel="stylesheet" href="./css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Categorías</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
     <div class="container">
-        <!-- Barra de navegación lateral -->
+        <!-- Sidebar -->
         <nav class="sidebar">
             <div class="sidebar-header">
                 <h3>Tienda Online</h3>
                 <p>Panel de Administración</p>
             </div>
             <ul class="sidebar-menu">
-                <li>
-                    <a href="index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-                </li>
-                <li>
-                    <a href="productos.html"><i class="fas fa-box"></i> Productos</a>
-                </li>
-                <li class="active">
-                    <a href="categorias.html"><i class="fas fa-tags"></i> Categorías</a>
-                </li>
-                <li>
-                    <a href="clientes.html"><i class="fas fa-users"></i> Clientes</a>
-                </li>
-                <li>
-                    <a href="pedidos.html"><i class="fas fa-shopping-cart"></i> Pedidos</a>
-                </li>
+                <li><a href="index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="productos.html"><i class="fas fa-box"></i> Productos</a></li>
+                <li class="active"><a href="categorias.html"><i class="fas fa-tags"></i> Categorías</a></li>
+                <li><a href="clientes.html"><i class="fas fa-users"></i> Clientes</a></li>
+                <li><a href="pedidos.html"><i class="fas fa-shopping-cart"></i> Pedidos</a></li>
             </ul>
         </nav>
 
@@ -38,53 +28,57 @@
         <main class="content">
             <header class="content-header">
                 <h1>Categorías</h1>
+                <div class="user-info">
+                    <span>Admin</span>
+                </div>
             </header>
 
-            <div class="dashboard">
-                <!-- Listado de Categorías -->
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Categorías</h2>
-                        <button class="btn-link" onclick="mostrarFormulario()">+ Nueva Categoría</button>
-                    </div>
-                    <div class="card-body">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nombre</th>
-                                    <th style="text-align: center;">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tabla-categorias">
-                                <!-- Las categorías se cargarán aquí dinámicamente -->
-                            </tbody>
-                        </table>
-                    </div>
+            <!-- Lista de categorías -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Listado de Categorías</h2>
+                    <button class="btn-link" onclick="mostrarFormulario()">+ Nueva Categoría</button>
                 </div>
+                <div class="card-body">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="categorias-tbody">
+                            <!-- Datos se llenarán desde la API -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-                <!-- Formulario para Nueva Categoría -->
-                <div class="card" id="formularioCategoria" style="display: none;">
-                    <div class="card-header">
-                        <h2 id="titulo-formulario">Nueva Categoría</h2>
-                    </div>
-                    <div class="card-body">
-                        <form id="categoriaForm">
-                            <input type="hidden" id="categoriaId">
-                            <div>
-                                <label for="nombre">Nombre:</label>
-                                <input type="text" id="nombre" required>
-                            </div>
-                            <br>
-                            <button type="submit" class="btn-link">Guardar</button>
-                            <button type="button" class="btn-link" onclick="cancelarFormulario()">Cancelar</button>
-                        </form>
-                    </div>
+            <!-- Formulario (oculto inicialmente) -->
+            <div class="card" id="formulario-categoria" style="display: none;">
+                <div class="card-header">
+                    <h2>Agregar/Editar Categoría</h2>
+                </div>
+                <div class="card-body">
+                    <form id="categoria-form">
+                        <input type="hidden" id="categoria-id" />
+                        <div>
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" id="nombre" required />
+                        </div>
+                        <div>
+                            <label for="descripcion">Descripción:</label>
+                            <input type="text" id="descripcion" required />
+                        </div>
+                        <button type="submit" class="btn-link">Guardar</button>
+                    </form>
                 </div>
             </div>
         </main>
     </div>
 
-    <script src="js/categorias.js"></script>
+    <script src="./js/categorias.js"></script>
 </body>
 </html>

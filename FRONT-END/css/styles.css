@@ -346,6 +346,161 @@
     font-weight: 600;
     color: var(--primary-color);
   }
+
+  .mensaje-exito {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #143D60;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    font-weight: bold;
+    z-index: 1000;
+}
+
+
+
+
+
+/* === FORMULARIO === */
+#formulario-cliente {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #143D60;
+  padding: 15px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 480px; /* Reducido el max-width */
+  z-index: 1000;
+  width: 100%;
+  max-height: 80%; /* Reducido el max-height */
+  border: 1px solid var(--border-color);
+  align-items: center;
+}
+
+/* Títulos del formulario */
+#formulario-cliente h2 {
+  font-size: 20px; /* Reducido el tamaño del título */
+  font-weight: 600;
+  color: #ffff;
+  margin-bottom: 15px; /* Reducido el margen */
+}
+
+/* Estilos de los campos de entrada */
+#formulario-cliente input[type="text"],
+#formulario-cliente input[type="email"],
+#formulario-cliente input[type="number"] {
+  width: 100%;
+  padding: 10px; /* Reducido el padding de los campos */
+  margin: 6px 0; /* Reducido el margen */
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  background-color: var(--light-color);
+  font-size: 14px; /* Reducido el tamaño de la fuente */
+  color: var(--text-color);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Estilos para el enfoque de los campos */
+#formulario-cliente input[type="text"]:hover,
+#formulario-cliente input[type="email"]:hover,
+#formulario-cliente input[type="number"]:hover {
+  outline: none;
+  border-color: var(--primary-color);
+  background-color: rgba(255, 255, 255, 0.816); /* Azul suave */
+}
+
+/* Etiquetas de los campos */
+#formulario-cliente label {
+  font-size: 12px; /* Reducido el tamaño de la fuente */
+  color: #ffff;
+  margin-bottom: 4px; /* Reducido el margen */
+}
+
+/* Contenedor de los campos de formulario */
+#formulario-cliente .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* Reducido el espacio entre los campos */
+}
+
+/* Botones de acción */
+#formulario-cliente button {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px 18px; /* Reducido el padding */
+  font-size: 14px; /* Reducido el tamaño de la fuente */
+  font-weight: 600;
+  border: none;
+  margin-top: 10px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Cambio de color en el botón al pasar el mouse */
+#formulario-cliente button:hover {
+  background-color: #217dbb; /* Tono más oscuro */
+}
+
+/* Estilo para el botón de cancelación */
+#formulario-cliente .btn-cancel {
+  background-color: var(--danger-color);
+  color: white;
+  padding: 10px 18px; /* Reducido el padding */
+  font-size: 14px; /* Reducido el tamaño de la fuente */
+  font-weight: 600;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Cambio de color en el botón de cancelación al pasar el mouse */
+#formulario-cliente .btn-cancel:hover {
+  background-color: #c0392b; /* Tono más oscuro */
+}
+
+/* Mensaje de éxito */
+.mensaje-exito {
+  background-color: var(--success-color);
+  color: white;
+  padding: 10px 18px; /* Reducido el padding */
+  border-radius: var(--border-radius);
+  font-size: 14px; /* Reducido el tamaño de la fuente */
+  font-weight: bold;
+  text-align: center;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  box-shadow: var(--box-shadow);
+  display: none; /* Inicialmente oculto */
+}
+
+/* Para campos de formulario deshabilitados */
+#formulario-cliente input:disabled {
+  background-color: #e0e0e0;
+  cursor: not-allowed;
+}
+
+
+
+
+
+
+
+
+
+
   
   /* === RESPONSIVE === */
   @media (max-width: 992px) {

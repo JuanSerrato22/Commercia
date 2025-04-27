@@ -37,13 +37,25 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => {
                 if (response.status === 409) {
                     alert("Ya existe un cliente con ese email.");
-                }
+                } else{
+                mostrarMensajeExito('Cliente creado exitosamente.');
                 cargarClientes();
                 cancelarFormulario();
+                }
             });
         }
     });
 });
+
+function mostrarMensajeExito(texto) {
+    const mensaje = document.getElementById('mensaje-exito');
+    mensaje.textContent = texto;
+    mensaje.style.display = 'block';
+    
+    setTimeout(() => {
+        mensaje.style.display = 'none';
+    }, 3000); // El mensaje desaparece después de 3 segundos
+}
 
 function cargarClientes() {
     fetch('http://localhost:8085/api/clientes')
@@ -99,6 +111,9 @@ function eliminarCliente(id) {
     if (confirm('¿Estás seguro de que quieres eliminar este cliente?')) {
         fetch(`http://localhost:8085/api/clientes/${id}`, {
             method: 'DELETE'
-        }).then(() => cargarClientes());
+        }).then(() => {
+            mostrarMensajeExito('Cliente eliminado exitosamente.');
+            cargarClientes();
+        });
     }
 }

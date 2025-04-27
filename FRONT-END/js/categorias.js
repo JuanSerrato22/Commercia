@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         } else {
             // Crear categoría
-            fetch('http://localhost:8085/api/clientes', {
+            fetch('http://localhost:8085/api/categorias', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(categoria)

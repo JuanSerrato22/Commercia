@@ -18,8 +18,12 @@ function cargarProductos() {
                     <td>$${p.precio}</td>
                     <td>${p.categoria?.nombre || '-'}</td>
                     <td>
-                        <button onclick="editarProducto(${p.id})">Editar</button>
-                        <button onclick="eliminarProducto(${p.id})">Eliminar</button>
+                        <button class="btn-icon" onclick="editarProducto(${p.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-icon" onclick="eliminarProducto(${p.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
                     </td>
                 `;
                 tbody.appendChild(row);

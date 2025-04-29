@@ -45,8 +45,7 @@ function cargarPedidosRecientes() {
                     <td>${new Date(pedido.fecha).toLocaleDateString()}</td>
                     <td>$${pedido.total || 0}</td>
                     <td>${pedido.estado || 'Pendiente'}</td>
-                    <td><button>Ver</button></td>
-                `;
+                    `;
                 tbody.appendChild(row);
             });
         })

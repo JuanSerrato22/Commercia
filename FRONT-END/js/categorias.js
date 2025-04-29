@@ -65,14 +65,14 @@ function cargarCategorias() {
 }
 
 function mostrarFormulario() {
-    document.getElementById('formulario-categoria').style.display = 'block';
+    document.querySelector('.formulario').style.display = 'block';
     document.getElementById('categoria-id').value = '';
     document.getElementById('nombre').value = '';
     document.getElementById('descripcion').value = '';
 }
 
 function cancelarFormulario() {
-    document.getElementById('formulario-categoria').style.display = 'none';
+    document.querySelector('.formulario').style.display = 'none';
 }
 
 function editarCategoria(id, nombre, descripcion) {
@@ -89,3 +89,23 @@ function eliminarCategoria(id) {
         }).then(() => cargarCategorias());
     }
 }
+
+
+// Obtener el formulario y el botón de cerrar
+const formulario = document.getElementById('formulario');
+const closeBtn = document.getElementById('closeBtn');
+
+// Función para cerrar el formulario
+function cerrarFormulario() {
+  formulario.style.display = 'none';
+}
+
+// Cerrar con ESC
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    cerrarFormulario();
+  }
+});
+
+// Cerrar con la X
+closeBtn.addEventListener('click', cerrarFormulario);

@@ -237,15 +237,19 @@
   
   /* === BOTONES === */
   .btn-link {
-    color: var(--primary-color);
     font-weight: 500;
+    border-radius: 6px;
     font-size: 14px;
-    transition: var(--transition);
+    padding: 5px
+    var(--border-radius);
+    background-color: #143D60;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
   }
   
   .btn-link:hover {
-    color: #217dbb;
-    text-decoration: underline;
+    background-color: var(--primary-color);
   }
   
   .btn-icon {
@@ -361,11 +365,14 @@
 }
 
 
+.selector {
+  display: flex;
+  flex-direction:row;
+  align-content: end;
+}
 
-
-
-/* === FORMULARIO === */
-#formulario-cliente {
+/* FORMULARIO GENERAL */
+.formulario {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -377,66 +384,65 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  max-width: 480px; /* Reducido el max-width */
+  max-width: 480px;
   z-index: 1000;
   width: 100%;
-  max-height: 80%; /* Reducido el max-height */
+  max-height: 80%;
   border: 1px solid var(--border-color);
   align-items: center;
 }
 
 /* Títulos del formulario */
-#formulario-cliente h2 {
-  font-size: 20px; /* Reducido el tamaño del título */
+.formulario h2 {
+  font-size: 20px;
   font-weight: 600;
   color: #ffff;
-  margin-bottom: 15px; /* Reducido el margen */
+  margin-bottom: 15px;
 }
 
 /* Estilos de los campos de entrada */
-#formulario-cliente input[type="text"],
-#formulario-cliente input[type="email"],
-#formulario-cliente input[type="number"] {
+.formulario input[type="text"],
+.formulario input[type="email"],
+.formulario input[type="number"] {
   width: 100%;
-  padding: 10px; /* Reducido el padding de los campos */
-  margin: 6px 0; /* Reducido el margen */
+  padding: 10px;
+  margin: 6px 0;
   border-radius: var(--border-radius);
   border: 1px solid var(--border-color);
   background-color: var(--light-color);
-  font-size: 14px; /* Reducido el tamaño de la fuente */
+  font-size: 14px;
   color: var(--text-color);
   transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
-/* Estilos para el enfoque de los campos */
-#formulario-cliente input[type="text"]:hover,
-#formulario-cliente input[type="email"]:hover,
-#formulario-cliente input[type="number"]:hover {
+.formulario input[type="text"]:hover,
+.formulario input[type="email"]:hover,
+.formulario input[type="number"]:hover {
   outline: none;
   border-color: var(--primary-color);
-  background-color: rgba(255, 255, 255, 0.816); /* Azul suave */
+  background-color: rgba(255, 255, 255, 0.816);
 }
 
-/* Etiquetas de los campos */
-#formulario-cliente label {
-  font-size: 12px; /* Reducido el tamaño de la fuente */
+/* Etiquetas */
+.formulario label {
+  font-size: 12px;
   color: #ffff;
-  margin-bottom: 4px; /* Reducido el margen */
+  margin-bottom: 4px;
 }
 
-/* Contenedor de los campos de formulario */
-#formulario-cliente .form-group {
+/* Contenedor de campos */
+.formulario .form-group {
   display: flex;
   flex-direction: column;
-  gap: 4px; /* Reducido el espacio entre los campos */
+  gap: 4px;
 }
 
-/* Botones de acción */
-#formulario-cliente button {
+/* Botones */
+.formulario button {
   background-color: var(--primary-color);
   color: white;
-  padding: 10px 18px; /* Reducido el padding */
-  font-size: 14px; /* Reducido el tamaño de la fuente */
+  padding: 10px 18px;
+  font-size: 14px;
   font-weight: 600;
   border: none;
   margin-top: 10px;
@@ -445,58 +451,39 @@
   transition: background-color 0.3s ease;
 }
 
-/* Cambio de color en el botón al pasar el mouse */
-#formulario-cliente button:hover {
-  background-color: #217dbb; /* Tono más oscuro */
+.formulario button:hover {
+  background-color: #051e2f;
 }
 
-/* Estilo para el botón de cancelación */
-#formulario-cliente .btn-cancel {
+.formulario .btn-cancel {
   background-color: var(--danger-color);
-  color: white;
-  padding: 10px 18px; /* Reducido el padding */
-  font-size: 14px; /* Reducido el tamaño de la fuente */
-  font-weight: 600;
-  border: none;
-  border-radius: var(--border-radius);
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-/* Cambio de color en el botón de cancelación al pasar el mouse */
-#formulario-cliente .btn-cancel:hover {
-  background-color: #c0392b; /* Tono más oscuro */
-}
 
-/* Mensaje de éxito */
-.mensaje-exito {
-  background-color: var(--success-color);
-  color: white;
-  padding: 10px 18px; /* Reducido el padding */
-  border-radius: var(--border-radius);
-  font-size: 14px; /* Reducido el tamaño de la fuente */
-  font-weight: bold;
-  text-align: center;
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-  box-shadow: var(--box-shadow);
-  display: none; /* Inicialmente oculto */
-}
-
-/* Para campos de formulario deshabilitados */
-#formulario-cliente input:disabled {
+/* Campos deshabilitados */
+.formulario input:disabled {
   background-color: #e0e0e0;
   cursor: not-allowed;
 }
 
+/* Estilo para el botón de cerrar */
+.close-btn {
+  background-color: var(--primary-color);
+  color: white;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
 
+}
 
-
-
-
+.close-btn:hover {
+  background-color: #051e2f;
+}
 
 
 

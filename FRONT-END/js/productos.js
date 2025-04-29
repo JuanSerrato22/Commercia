@@ -46,10 +46,13 @@ function cargarCategorias() {
 }
 
 function mostrarFormulario() {
-    form.reset();
+    document.querySelector('.formulario').style.display = 'block';
     document.getElementById('producto-id').value = '';
-    formularioProducto.style.display = 'block';
     cargarCategorias();
+}
+
+function cancelarFormulario() {
+    document.querySelector('.formulario').style.display = 'none';
 }
 
 form.addEventListener('submit', function (e) {
@@ -99,3 +102,24 @@ function eliminarProducto(id) {
 }
 
 cargarProductos();
+
+
+
+// Obtener el formulario y el botón de cerrar
+const formulario = document.getElementById('formulario');
+const closeBtn = document.getElementById('closeBtn');
+
+// Función para cerrar el formulario
+function cerrarFormulario() {
+  formulario.style.display = 'none';
+}
+
+// Cerrar con ESC
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    cerrarFormulario();
+  }
+});
+
+// Cerrar con la X
+closeBtn.addEventListener('click', cerrarFormulario);

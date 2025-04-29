@@ -10,6 +10,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -42,6 +44,14 @@ public class Producto {
     @OneToMany(mappedBy = "producto")
     private List<DetallePedido> detallesPedidos = new ArrayList<>();
     
+    @ManyToMany
+    @JoinTable(
+        name = "productoproveedor",
+        joinColumns = @JoinColumn(name = "producto_id"),
+        inverseJoinColumns = @JoinColumn(name = "proveedor_id")
+    )
+    private List<Proveedor> proveedores = new ArrayList<>();
+
     // Constructores
     public Producto() {}
     
@@ -108,5 +118,13 @@ public class Producto {
 
     public void setDetallesPedidos(List<DetallePedido> detallesPedidos) {
         this.detallesPedidos = detallesPedidos;
+    }
+
+    public List<Proveedor> getProveedores() {
+        return proveedores;
+    }
+    
+    public void setProveedores(List<Proveedor> proveedores) {
+        this.proveedores = proveedores;
     }
 }

@@ -16,11 +16,26 @@
                 <p>Panel de Administración</p>
             </div>
             <ul class="sidebar-menu">
-                <li><a href="index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                <li><a href="productos.html"><i class="fas fa-box"></i> Productos</a></li>
-                <li><a href="categorias.html"><i class="fas fa-tags"></i> Categorías</a></li>
-                <li><a href="clientes.html"><i class="fas fa-users"></i> Clientes</a></li>
-                <li class="active"><a href="pedidos.html"><i class="fas fa-shopping-cart"></i> Pedidos</a></li>
+                <li>
+                    <a href="index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                </li>
+                <li>
+                    <a href="productos.html"><i class="fas fa-box"></i> Productos</a>
+                </li>
+                <li>
+                    <a href="categorias.html"><i class="fas fa-tags"></i> Categorías</a>
+                </li>
+                <li>
+                    <a href="clientes.html"><i class="fas fa-users"></i> Clientes</a>
+                </li>
+                <li class="active"><a href="pedidos.html"><i class="fas fa-shopping-cart"></i> Pedidos</a>
+                </li>
+                <li>
+                    <a href="proveedores.html"><i class="fas fa-truck"></i> Proveedores</a>
+                </li>
+                <li>
+                    <a href="productos_proveedores.html"><i class="fas fa-link"></i> Producto-Proveedor</a>
+                </li>
             </ul>
         </nav>
 
@@ -58,7 +73,8 @@
             </div>
 
             <!-- Formulario (oculto inicialmente) -->
-            <div class="card" id="formulario-pedido" style="display: none;">
+            <div class="card formulario" id="formulario" style="display: none;">
+                <button id="closeBtn" class="close-btn">X</button>
                 <div class="card-header">
                     <h2>Agregar/Editar Pedido</h2>
                 </div>
@@ -109,5 +125,38 @@
     </div>
 
     <script src="./js/pedidos.js"></script>
+    <script>
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+            alert('El clic derecho está deshabilitado en esta página');
+        });
+    </script>
+    <script>
+        document.addEventListener('keydown', function(e) {
+            // Deshabilitar F12
+            if (e.key === "F12") {
+                e.preventDefault();
+                alert("La tecla F12 está deshabilitada.");
+            }
+    
+            // Deshabilitar Ctrl+Shift+I (que abre la consola en algunos navegadores)
+            if (e.ctrlKey && e.shiftKey && e.key === "I") {
+                e.preventDefault();
+                alert("La combinación de teclas Ctrl+Shift+I está deshabilitada.");
+            }
+    
+            // Deshabilitar Ctrl+U (que muestra el código fuente de la página)
+            if (e.ctrlKey && e.key === "U") {
+                e.preventDefault();
+                alert("La combinación de teclas Ctrl+U está deshabilitada.");
+            }
+    
+            // Deshabilitar F11 (pantalla completa)
+            if (e.key === "F11") {
+                e.preventDefault();
+                alert("La tecla F11 está deshabilitada.");
+            }
+        });
+    </script>
 </body>
 </html>

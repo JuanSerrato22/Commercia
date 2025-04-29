@@ -31,6 +31,12 @@
                 <li>
                     <a href="pedidos.html"><i class="fas fa-shopping-cart"></i> Pedidos</a>
                 </li>
+                <li>
+                    <a href="proveedores.html"><i class="fas fa-truck"></i> Proveedores</a>
+                </li>
+                <li>
+                    <a href="productos_proveedores.html"><i class="fas fa-link"></i> Producto-Proveedor</a>
+                </li>
             </ul>
         </nav>
 
@@ -125,5 +131,38 @@
 
     <!-- Incluir el archivo JS -->
     <script src="js/api.js"></script>
+    <script>
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+            alert('El clic derecho está deshabilitado en esta página');
+        });
+    </script>
+    <script>
+        document.addEventListener('keydown', function(e) {
+            // Deshabilitar F12
+            if (e.key === "F12") {
+                e.preventDefault();
+                alert("La tecla F12 está deshabilitada.");
+            }
+    
+            // Deshabilitar Ctrl+Shift+I (que abre la consola en algunos navegadores)
+            if (e.ctrlKey && e.shiftKey && e.key === "I") {
+                e.preventDefault();
+                alert("La combinación de teclas Ctrl+Shift+I está deshabilitada.");
+            }
+    
+            // Deshabilitar Ctrl+U (que muestra el código fuente de la página)
+            if (e.ctrlKey && e.key === "U") {
+                e.preventDefault();
+                alert("La combinación de teclas Ctrl+U está deshabilitada.");
+            }
+    
+            // Deshabilitar F11 (pantalla completa)
+            if (e.key === "F11") {
+                e.preventDefault();
+                alert("La tecla F11 está deshabilitada.");
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,58 +1,60 @@
-
 document.addEventListener('DOMContentLoaded', function () {
-    const API_BASE = 'http://localhost:8085/api/clientes';
+    const API_BASE = 'http://localhost:8085/api/proveedores';
 
-    cargarClientes();
+    cargarProveedores();
 
-    document.getElementById('cliente-form').addEventListener('submit', function (e) {
+    document.getElementById('proveedor-form').addEventListener('submit', function (e) {
         e.preventDefault();
 
-        const id = document.getElementById('cliente-id').value;
+        const id = document.getElementById('proveedor-id').value;
+        const nit = document.getElementById('nit').value;        
         const nombre = document.getElementById('nombre').value;
-        const apellido = document.getElementById('apellido').value;
-        const email = document.getElementById('email').value;
         const telefono = document.getElementById('telefono').value;
+        const email = document.getElementById('email').value;
         const direccion = document.getElementById('direccion').value;
 
-        if (!nombre || !apellido || !email || !telefono) {
+        if (!nit || !nombre || !telefono || !email) {
             alert("Todos los campos son obligatorios.");
             return;
         }
 
-        // Validación de formato de email
+                // Validación de formato de email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             alert("Por favor ingresa un email válido.");
             return;
         }
 
-        const cliente = { nombre, apellido, email, telefono, direccion };
+
+        const proveedor = { nit, nombre, telefono, email, direccion };
 
         if (id) {
-            // Actualizar cliente
-            fetch(`http://localhost:8085/api/clientes/${id}`, {
+            // Actualizar proveedor
+            fetch(`http://localhost:8085/api/proveedores/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(cliente)
+                body: JSON.stringify(proveedor)
             })
             .then(() => {
-                cargarClientes();
+                cargarProveedores();
                 cancelarFormulario();
             });
         } else {
-            // Crear cliente
-            fetch('http://localhost:8085/api/clientes', {
+            // Crear proveedor
+            fetch('http://localhost:8085/api/proveedores', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(cliente)
+                body: JSON.stringify(proveedor)
             })
             .then(response => {
                 if (response.status === 409) {
-                    alert("Ya existe un cliente con ese email.");
-                } else{
-                mostrarMensajeExito('Cliente creado exitosamente.');
-                cargarClientes();
-                cancelarFormulario();
+                    alert("Ya existe un proveedor con ese NIT o email.");
+                } else if(response.ok) {
+                    mostrarMensajeExito('Proveedor creado exitosamente.');
+                    cargarProveedores();
+                    cancelarFormulario();
+                } else {
+                    alert("Hubo un error al crear el proveedor. Intenta nuevamente.");
                 }
             });
         }
@@ -63,30 +65,32 @@ function mostrarMensajeExito(texto) {
     const mensaje = document.getElementById('mensaje-exito');
     mensaje.textContent = texto;
     mensaje.style.display = 'block';
-    
+
     setTimeout(() => {
         mensaje.style.display = 'none';
-    }, 3000); // El mensaje desaparece después de 3 segundos
+    }, 3000);
 }
 
-function cargarClientes() {
-    fetch('http://localhost:8085/api/clientes')
+function cargarProveedores() {
+    fetch('http://localhost:8085/api/proveedores')
         .then(res => res.json())
         .then(data => {
-            const tbody = document.getElementById('clientes-tbody');
+            const tbody = document.getElementById('proveedores-tbody');
             tbody.innerHTML = '';
-            data.forEach(cliente => {
+            data.forEach(proveedor => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${cliente.id}</td>
-                    <td>${cliente.nombre} ${cliente.apellido}</td>
-                    <td>${cliente.email}</td>
-                    <td>${cliente.telefono}</td>
+                    <td>${proveedor.id}</td>
+                    <td>${proveedor.nit}</td>
+                    <td>${proveedor.nombre}</td>
+                    <td>${proveedor.email}</td>
+                    <td>${proveedor.telefono}</td>
+                    <td>${proveedor.direccion || ''}</td>
                     <td>
-                        <button class="btn-icon" onclick="editarCliente(${cliente.id}, '${cliente.nombre}', '${cliente.apellido}', '${cliente.email}', '${cliente.telefono}', '${cliente.direccion || ''}')">
+                        <button class="btn-icon" onclick="editarProveedor(${proveedor.id}, '${proveedor.nombre}', '${proveedor.email}', '${proveedor.telefono}', '${proveedor.direccion || ''}')">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <button class="btn-icon" onclick="eliminarCliente(${cliente.id})">
+                        <button class="btn-icon" onclick="eliminarProveedor(${proveedor.id})">
                             <i class="fas fa-trash"></i>
                         </button>
                     </td>
@@ -98,10 +102,10 @@ function cargarClientes() {
 
 function mostrarFormulario() {
     document.querySelector('.formulario').style.display = 'block';
-    document.getElementById('cliente-id').value = '';
+    document.getElementById('proveedor-id').value = '';
     document.getElementById('nombre').value = '';
-    document.getElementById('email').value = '';
     document.getElementById('telefono').value = '';
+    document.getElementById('email').value = '';
     document.getElementById('direccion').value = '';
 }
 
@@ -109,26 +113,26 @@ function cancelarFormulario() {
     document.querySelector('.formulario').style.display = 'none';
 }
 
-function editarCliente(id, nombre, apellido, email, telefono, direccion) {
+function editarProveedor(id, nombre, email, telefono, direccion) {
     mostrarFormulario();
-    document.getElementById('cliente-id').value = id;
+    document.getElementById('proveedor-id').value = id;
     document.getElementById('nombre').value = nombre;
-    document.getElementById('apellido').value = apellido; 
-    document.getElementById('email').value = email;
     document.getElementById('telefono').value = telefono;
+    document.getElementById('email').value = email;
     document.getElementById('direccion').value = direccion;
 }
 
-function eliminarCliente(id) {
-    if (confirm('¿Estás seguro de que quieres eliminar este cliente?')) {
-        fetch(`http://localhost:8085/api/clientes/${id}`, {
+function eliminarProveedor(id) {
+    if (confirm('¿Estás seguro de que quieres eliminar este proveedor?')) {
+        fetch(`http://localhost:8085/api/proveedores/${id}`, {
             method: 'DELETE'
         }).then(() => {
-            mostrarMensajeExito('Cliente eliminado exitosamente.');
-            cargarClientes();
+            mostrarMensajeExito('Proveedor eliminado exitosamente.');
+            cargarProveedores();
         });
     }
 }
+
 
 
 // Obtener el formulario y el botón de cerrar

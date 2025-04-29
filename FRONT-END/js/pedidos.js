@@ -107,7 +107,7 @@ function cargarPedidos() {
 }
 
 function mostrarFormulario() {
-    document.getElementById('formulario-pedido').style.display = 'block';
+    document.querySelector('.formulario').style.display = 'block';
     document.getElementById('pedido-id').value = '';
     document.getElementById('cliente').value = '';
     document.getElementById('producto').value = '';
@@ -117,7 +117,7 @@ function mostrarFormulario() {
 }
 
 function cancelarFormulario() {
-    document.getElementById('formulario-pedido').style.display = 'none';
+    document.querySelector('.formulario').style.display = 'none';
 }
 
 function editarPedido(id, clienteId, productoId, direccionEnvio, estado) {
@@ -149,3 +149,23 @@ function mostrarMonto() {
         document.getElementById('monto').value = '';
     }
 }
+
+
+// Obtener el formulario y el botón de cerrar
+const formulario = document.getElementById('formulario');
+const closeBtn = document.getElementById('closeBtn');
+
+// Función para cerrar el formulario
+function cerrarFormulario() {
+  formulario.style.display = 'none';
+}
+
+// Cerrar con ESC
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    cerrarFormulario();
+  }
+});
+
+// Cerrar con la X
+closeBtn.addEventListener('click', cerrarFormulario);

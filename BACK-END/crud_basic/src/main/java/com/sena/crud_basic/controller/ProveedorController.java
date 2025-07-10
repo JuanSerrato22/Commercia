@@ -13,7 +13,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/proveedores")
-@CrossOrigin(origins = "http://127.0.0.1:5501") // Ajusta si tu frontend está en otro puerto
 public class ProveedorController {
 
     @Autowired
